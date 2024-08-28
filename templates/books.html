@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>目前販售書籍</h1>
+  {% for id in books %}
+  <!-- {{books[id]}} -->
+  <h3>{{books[id].name}}</h3>
+  <h5>${{books[id].price}}</h5>
+  <img src="{{books[id].image_url}}" alt="">
+  <button onclick="showBook('{{books[id].name}}',
+    '{{books[id].price}}')">購買</button>
+  {% endfor %}
+
+  <script>
+    function showBook(name, price) {
+      alert(`${name} 價格為:$${price}`);
+    }
+  </script>
+</body>
+
+</html>
