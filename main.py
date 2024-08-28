@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template
 from datetime import datetime
+from pm25 import get_pm25_data
 
 app = Flask(__name__)
 books = {
@@ -21,10 +22,23 @@ books = {
 }
 
 
+@app.route("/pm25")
+def get_pm25():
+
+    columns, values = get_pm25_data()
+    result = True
+    return render_template("./pm25.html", columns=columns, values=values, result=result)
+
+
 @app.route("/sum/x=<x>&y=<y>")
 def sum(x, y):
     total = int(x) + int(y)
     return f"{x}+{y}={total}"
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
 
 
 @app.route("/books")
